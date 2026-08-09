@@ -34,20 +34,20 @@ export const EquationPanel: React.FC<EquationPanelProps> = ({
       </div>
 
       {/* Main Single-Line Equation Display Bar */}
-      <div className="w-full bg-slate-900 text-yellow-300 py-3.5 px-6 rounded-xl border-2 border-yellow-500 shadow-inner flex items-center justify-center overflow-x-auto">
-        <div className="font-mono font-bold text-xl md:text-2xl lg:text-3xl tracking-wider text-center whitespace-nowrap">
+      <div className="w-full bg-slate-900 text-yellow-300 py-3 px-3 md:px-4 rounded-xl border-2 border-yellow-500 shadow-inner flex items-center justify-center overflow-x-auto">
+        <div className="font-mono font-bold text-base sm:text-lg md:text-xl lg:text-2xl tracking-normal text-center whitespace-nowrap">
           <span className="text-amber-400">{selectedMetal.id === 'Li' ? '2Li' : selectedMetal.id === 'Na' ? '2Na' : selectedMetal.id === 'K' ? '2K' : selectedMetal.id === 'Rb' ? '2Rb' : '2Cs'}</span>
-          <span className="text-slate-400 mx-2">+</span>
+          <span className="text-slate-400 mx-1 md:mx-1.5">+</span>
           <span className="text-cyan-300">
-            2H<sub className="text-base md:text-lg">2</sub>O
+            2H<sub className="text-xs sm:text-sm md:text-base">2</sub>O
           </span>
-          <span className="text-yellow-400 font-sans mx-3">&rarr;</span>
+          <span className="text-yellow-400 font-sans mx-1.5 md:mx-2">&rarr;</span>
           <span className="text-emerald-400">
             2{selectedMetal.id}OH
           </span>
-          <span className="text-slate-400 mx-2">+</span>
+          <span className="text-slate-400 mx-1 md:mx-1.5">+</span>
           <span className="text-rose-400">
-            H<sub className="text-base md:text-lg">2</sub>&uarr;
+            H<sub className="text-xs sm:text-sm md:text-base">2</sub>&uarr;
           </span>
         </div>
       </div>

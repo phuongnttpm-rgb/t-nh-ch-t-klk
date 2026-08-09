@@ -142,9 +142,19 @@ export const GlassBasin: React.FC<GlassBasinProps> = ({
           const p = particlesRef.current;
           const waterSurfaceY = bottomY - (basinHeight * 0.75 * (basin.waterLevel / 100));
 
+          // Set speed based on metal reactivity (Li is much slower than Na, K, Rb, Cs)
+          const targetSpeed = basin.metal.id === 'Li' ? 0.45
+                            : basin.metal.id === 'Na' ? 1.8
+                            : basin.metal.id === 'K' ? 2.8
+                            : basin.metal.id === 'Rb' ? 3.8
+                            : 4.8;
+
+          const currentDir = p.vx >= 0 ? 1 : -1;
+          p.vx = currentDir * targetSpeed;
+
           // Skittering physics on surface
           p.metalX += p.vx;
-          p.metalY = waterSurfaceY + Math.sin(frame * 0.2) * 2;
+          p.metalY = waterSurfaceY + Math.sin(frame * (basin.metal.id === 'Li' ? 0.08 : 0.2)) * 1.5;
 
           // Bounce off basin walls
           const minX = basinMargin + 18;
