@@ -70,11 +70,16 @@ export const AudioControls: React.FC<AudioControlsProps> = ({
         </div>
       </div>
 
-      {/* Row 2: Title 1 with chemistry icons */}
-      <div className="w-full frame-3d py-2 px-4 text-center flex items-center justify-center gap-3 text-slate-900 font-extrabold tracking-wide text-base md:text-lg uppercase">
-        <FlaskConical className="w-6 h-6 text-yellow-700" />
-        <h1>KHÁM PHÁ TÍNH CHẤT HÓA HỌC CỦA KIM LOẠI KIỀM</h1>
-        <FlaskConical className="w-6 h-6 text-yellow-700" />
+      {/* Row 2: Title 1 with chemistry icons & Author */}
+      <div className="w-full frame-3d py-2 px-4 flex flex-col md:flex-row items-center justify-between gap-2 text-slate-900 font-extrabold tracking-wide text-base md:text-lg uppercase">
+        <div className="flex items-center justify-center gap-2 flex-1 text-center">
+          <FlaskConical className="w-6 h-6 text-yellow-700 shrink-0" />
+          <h1>KHÁM PHÁ TÍNH CHẤT HÓA HỌC CỦA KIM LOẠI KIỀM</h1>
+          <FlaskConical className="w-6 h-6 text-yellow-700 shrink-0" />
+        </div>
+        <div className="shrink-0 text-xs md:text-sm font-black text-amber-950 bg-amber-200/90 px-3 py-1 rounded-lg border border-amber-400/80 shadow-xs normal-case">
+          GV: Cô Ngọc Phượng-NTT
+        </div>
       </div>
 
       {/* Row 3: Subtitle / Current Main View Navigation */}

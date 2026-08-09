@@ -146,72 +146,71 @@ export default function App() {
       {/* Background Laboratory Grid Pattern */}
       <div className="absolute inset-0 bg-[radial-gradient(#334155_1px,transparent_1px)] [background-size:16px_16px] opacity-30 pointer-events-none" />
 
-      {/* Main Grid Layout: 3/4 Left Section & 1/4 Right Section */}
-      <div className="relative z-10 max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-5 items-stretch">
-        {/* 3/4 Left Section: Main Experiment Frame & Controls */}
-        <div className="lg:col-span-8 xl:col-span-9 flex flex-col justify-between space-y-4">
-          {/* Header Controls (Rows 1, 2, 3) */}
-          <AudioControls
-            onOpenMusicModal={() => {}}
-            onOpenFlameTest={() => setIsFlameTestOpen(true)}
-            onOpenOxygenChlorineTest={() => setIsOxygenChlorineOpen(true)}
+      {/* Header Controls (Rows 1, 2, 3) */}
+      <div className="relative z-10 max-w-[1600px] mx-auto mb-3 md:mb-4">
+        <AudioControls
+          onOpenMusicModal={() => {}}
+          onOpenFlameTest={() => setIsFlameTestOpen(true)}
+          onOpenOxygenChlorineTest={() => setIsOxygenChlorineOpen(true)}
+        />
+      </div>
+
+      {/* Main 3-Column Grid Layout: Khung 1 (Trái - Nút PT) | Khung 2 (Giữa - Mở rộng Thí nghiệm) | Khung 3 (Phải - Hóa chất) */}
+      <div className="relative z-10 max-w-[1600px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-4 md:gap-5 items-stretch">
+        
+        {/* KHUNG 1 (Trái): 5 Nút chọn phương trình - Span 3 cols */}
+        <div className="lg:col-span-3 h-full">
+          <EquationButtons
+            selectedBasinIndex={selectedBasinIndex}
+            onSelectBasin={(idx) => setSelectedBasinIndex(idx)}
           />
+        </div>
 
-          {/* Area Below Rows 2 & 3: Equation Buttons (Left Sub) + Basin Stand (Right Sub) */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-4 items-stretch">
-            {/* Left Sub-Column: 5 Equation Buttons Box */}
-            <div className="md:col-span-4 h-full">
-              <EquationButtons
-                selectedBasinIndex={selectedBasinIndex}
-                onSelectBasin={(idx) => setSelectedBasinIndex(idx)}
-              />
+        {/* KHUNG 2 (Giữa - Mở rộng cho học sinh quan sát từ cuối lớp): Giá 5 chậu thủy tinh & Bảng phương trình - Span 6 cols */}
+        <div className="lg:col-span-6 flex flex-col justify-between space-y-4">
+          {/* Stand with 5 Glass Basins */}
+          <div className="w-full frame-3d p-4 md:p-5 text-slate-900 flex flex-col justify-between h-full">
+            <div className="text-center mb-2 pb-1 border-b border-yellow-300">
+              <h3 className="font-extrabold text-slate-900 text-xs md:text-sm lg:text-base uppercase tracking-wide">
+                GIÁ ĐỂ 5 CHẬU THỦY TINH THÍ NGHIỆM
+              </h3>
             </div>
 
-            {/* Right Sub-Column: Stand with 5 Glass Basins */}
-            <div className="md:col-span-8 frame-3d p-4 text-slate-900 flex flex-col justify-between">
-              <div className="text-center mb-2 pb-1 border-b border-yellow-300">
-                <h3 className="font-extrabold text-slate-900 text-xs md:text-sm uppercase tracking-wide">
-                  GIÁ ĐỂ 5 CHẬU THỦY TINH THÍ NGHIỆM
-                </h3>
+            {/* 5 Basins Grid */}
+            <div className="grid grid-cols-5 gap-2 md:gap-3 my-auto items-end">
+              {/* Basins 1, 2, 3 */}
+              {basins.slice(0, 3).map((basin) => (
+                <GlassBasin
+                  key={basin.index}
+                  basin={basin}
+                  isSelected={selectedBasinIndex === basin.index}
+                  onSelect={() => setSelectedBasinIndex(basin.index)}
+                />
+              ))}
+
+              {/* Basins 4 & 5 inside Safety Shield */}
+              <div className="col-span-2">
+                <SafetyShield isTriggered={basins[3].isReacting || basins[4].isReacting}>
+                  <div className="grid grid-cols-2 gap-2">
+                    {basins.slice(3, 5).map((basin) => (
+                      <GlassBasin
+                        key={basin.index}
+                        basin={basin}
+                        isSelected={selectedBasinIndex === basin.index}
+                        onSelect={() => setSelectedBasinIndex(basin.index)}
+                        isInsideSafetyShield={true}
+                      />
+                    ))}
+                  </div>
+                </SafetyShield>
               </div>
-
-              {/* 5 Basins Grid */}
-              <div className="grid grid-cols-5 gap-1.5 md:gap-2 my-auto items-end">
-                {/* Basins 1, 2, 3 */}
-                {basins.slice(0, 3).map((basin) => (
-                  <GlassBasin
-                    key={basin.index}
-                    basin={basin}
-                    isSelected={selectedBasinIndex === basin.index}
-                    onSelect={() => setSelectedBasinIndex(basin.index)}
-                  />
-                ))}
-
-                {/* Basins 4 & 5 inside Safety Shield */}
-                <div className="col-span-2">
-                  <SafetyShield isTriggered={basins[3].isReacting || basins[4].isReacting}>
-                    <div className="grid grid-cols-2 gap-1.5">
-                      {basins.slice(3, 5).map((basin) => (
-                        <GlassBasin
-                          key={basin.index}
-                          basin={basin}
-                          isSelected={selectedBasinIndex === basin.index}
-                          onSelect={() => setSelectedBasinIndex(basin.index)}
-                          isInsideSafetyShield={true}
-                        />
-                      ))}
-                    </div>
-                  </SafetyShield>
-                </div>
-              </div>
-
-              {/* Wooden Stand Base Graphic */}
-              <div className="w-full h-3 mt-3 rounded-md bg-amber-800 border border-amber-950 shadow-xs" />
             </div>
 
+            {/* Wooden Stand Base Graphic */}
+            <div className="w-full h-3 mt-3 rounded-md bg-amber-800 border border-amber-950 shadow-xs" />
           </div>
 
-          {/* Equation Panel: Directly under the 5 glass basins, stretched long */}
+          {/* Equation Panel: Directly under the 5 glass basins */}
           <div className="w-full mt-2">
             <EquationPanel
               selectedBasinIndex={selectedBasinIndex}
@@ -220,8 +219,8 @@ export default function App() {
           </div>
         </div>
 
-        {/* 1/4 Right Section: Narrower Sidebar for Reagents & Reset */}
-        <div className="lg:col-span-4 xl:col-span-3 h-full">
+        {/* KHUNG 3 (Phải - Kích thước bằng Khung 1): Hóa chất & Thiết bị - Span 3 cols */}
+        <div className="lg:col-span-3 h-full">
           <ChemicalSidebar
             basins={basins}
             nextWaterIndex={nextWaterIndex}
@@ -232,6 +231,7 @@ export default function App() {
             onReset={handleReset}
           />
         </div>
+
       </div>
 
       {/* Flame Test Experiment Modal */}
