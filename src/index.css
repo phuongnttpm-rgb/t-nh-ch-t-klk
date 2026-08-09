@@ -1,0 +1,8 @@
+@import "tailwindcss";
+
+.frame-3d {
+  background-color: #fefce8;
+  border: 2px solid #eab308;
+  box-shadow: 4px 4px 0px #ca8a04;
+  border-radius: 12px;
+}

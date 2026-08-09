@@ -1,0 +1,6 @@
+{
+  "name": "Thí Nghiệm Kim Loại Kiềm",
+  "description": "Mô phỏng thí nghiệm tính chất hóa học của kim loại kiềm tác dụng với nước và chỉ thị Phenolphthalein",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
